@@ -35,7 +35,7 @@
 	<div class="panel-body">
 		<p><strong><%= comment.author %></strong> said: </p>
 		<p><%= comment.comment_entry %></p>
-		<p>submitted at: <%= comment.created_at %></p>
+		<p>submitted <%= comment.created_at.strftime('%D at %r') %></p>
 	</div>
 	<% end %>
 </div>
