@@ -5,10 +5,16 @@
 		<p><%= @blog_post.title %></p>
 	</div>
 	<div class="panel-body">
-		<p><%= @blog_post.author %></p>
-		<p>submitted at: <%= @blog_post.created_at %></p>
+		<p>by <strong><%= link_to @blog_post.user.username, user_posts_path(id: @blog_post.user.id) %></strong> 
+		<p>submitted <%= @blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></p>
 		<p><%= @blog_post.blog_entry %></p>
 	</div>
+	<% if current_user.id == @blog_post.user.id %>
+	<div class="panel-footer">
+	  <%= link_to 'Edit', edit_blog_post_path(@blog_post), class: "btn btn-warning" %>
+	  <%= link_to 'Destroy', @blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+	</div>
+<% end %>
 </div>
 
 
@@ -33,15 +39,30 @@
 	</div>
 	<% @blog_post.comments.each do |comment| %>
 	<div class="panel-body">
-		<p><strong><%= comment.author %></strong> said: </p>
+		<p><strong><%= link_to comment.user.username, user_posts_path(id: @blog_post.user.id) %></strong> said:</p> 
 		<p><%= comment.comment_entry %></p>
-		<p>submitted <%= comment.created_at.strftime('%D at %r') %></p>
+		<p>submitted <%= comment.created_at.strftime('%m/%d/%Y at %I:%M%p') %></p>
 	</div>
+	<% if current_user.id == @blog_post.user.id %>
+	<div class="panel-footer">
+	  <%= link_to 'Edit', edit_blog_post_path(@blog_post), class: "btn btn-warning" %>
+	  <%= link_to 'Destroy', @blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+	</div>
+<% end %>
 	<% end %>
 </div>
 
-<br><br>
-<%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
+
 <%= link_to 'Back', blog_posts_path %>
+
 <br>
 <br>
+
+
+
+
+
+
+
+
+

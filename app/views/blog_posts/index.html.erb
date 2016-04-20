@@ -7,18 +7,21 @@
 <div class="row">
   <% @blog_posts.each do |blog_post| %>
     <div class="col-md-6">
-      <div class="panel panel-default">
+      <div class="panel panel-primary">
         <div class="panel panel-heading">
-          <%= link_to blog_post.title, blog_post %>
+          <strong><%= link_to blog_post.title, blog_post %></strong>
 
         </div>
         <div class="panel panel-body">
-          <%= blog_post.author %><br />
+          by <strong><%= link_to blog_post.user.username, user_posts_path(id: blog_post.user.id) %></strong>
           <p><%= truncate(blog_post.blog_entry, length: 250, separator: " ") %> <br /> [<%= link_to 'Read More', blog_post %>]</p>
+          <p>submitted <%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></p>
         </div>
         <div class="panel-footer">
+          <% if current_user.id == blog_post.user.id %>
           <%= link_to 'Edit', edit_blog_post_path(blog_post), class: "btn btn-warning" %>
           <%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          <% end %>
         </div>
       </div>
     </div>
