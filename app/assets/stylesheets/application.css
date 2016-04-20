@@ -12,3 +12,7 @@ body{
 .panel-heading{
 	color: white;
 }
+.navbar-default .navbar-brand {
+  font-family: 'Oswald';
+  font-size: 250%;
+}
